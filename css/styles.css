@@ -302,6 +302,51 @@ main {
     padding-bottom: 5px;
 }
 
+/* Estilos para destacar elementos importantes en la info personal */
+.info-highlight {
+    grid-column: span 2;
+    background-color: rgba(0, 184, 255, 0.1);
+    border-left: 4px solid var(--accent-color);
+    box-shadow: 0 3px 10px rgba(0, 184, 255, 0.15);
+}
+
+.info-highlight h3 {
+    font-size: 1.4rem;
+    color: var(--accent-color);
+    letter-spacing: 1px;
+}
+
+.info-highlight p {
+    font-size: 1.1rem;
+}
+
+.info-highlight strong {
+    color: var(--accent-color);
+    letter-spacing: 0.5px;
+}
+
+/* Estilos para elementos secundarios en la info personal */
+.info-secondary {
+    opacity: 0.8;
+    border-left: 1px solid var(--accent-color);
+}
+
+.info-secondary h3 {
+    font-size: 1rem;
+}
+
+.info-secondary p {
+    font-size: 0.9rem;
+    color: var(--light-text);
+}
+
+/* Para pantallas pequeñas, resetear el tamaño de columna */
+@media screen and (max-width: 768px) {
+    .info-highlight {
+        grid-column: span 1;
+    }
+}
+
 /* Timeline de experiencia */
 .timeline {
     position: relative;
@@ -665,6 +710,10 @@ footer p {
 
     .tech-grid {
         grid-template-columns: 1fr;
+    }
+
+    .info-highlight {
+        grid-column: span 1;
     }
 }
 
