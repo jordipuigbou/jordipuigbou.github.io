@@ -263,7 +263,6 @@ main {
     height: 100%;
     background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
     transform: skewX(-25deg);
-    animation: shimmer 5s infinite;
 }
 
 @keyframes shimmer {
@@ -596,6 +595,11 @@ footer p {
     letter-spacing: 1px;
 }
 
+@keyframes pulseGlow {
+    0% { box-shadow: 0 0 8px var(--glow-color); }
+    100% { box-shadow: 0 0 8px var(--glow-color); }
+}
+
 /* Elementos decorativos tecnológicos */
 .tech-decoration {
     position: fixed;
@@ -626,13 +630,6 @@ footer p {
         repeating-linear-gradient(90deg, transparent, transparent 10px, rgba(0, 184, 255, 0.1) 10px, rgba(0, 184, 255, 0.1) 20px);
     background-size: 100% 100%, 20px 20px, 20px 20px;
     clip-path: polygon(100% 0, 100% 100%, 0 100%);
-}
-
-/* Efectos adicionales */
-@keyframes pulseGlow {
-    0% { box-shadow: 0 0 5px var(--glow-color); }
-    50% { box-shadow: 0 0 15px var(--glow-color); }
-    100% { box-shadow: 0 0 5px var(--glow-color); }
 }
 
 /* Media Queries */

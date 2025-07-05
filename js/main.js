@@ -63,37 +63,11 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(item);
     });
     
-    // Efecto de escritura para el título del encabezado
+    // Reemplazo el efecto de escritura parpadeante por una simple aparición del nombre
     const headerTitle = document.querySelector('.profile-info h1');
     if (headerTitle) {
-        const originalText = headerTitle.textContent;
-        headerTitle.textContent = '';
-        
-        let i = 0;
-        const typeWriter = () => {
-            if (i < originalText.length) {
-                headerTitle.textContent += originalText.charAt(i);
-                i++;
-                setTimeout(typeWriter, 100);
-            } else {
-                // Añadir cursor parpadeante al final
-                headerTitle.insertAdjacentHTML('beforeend', '<span class="cursor">|</span>');
-                const cursor = document.querySelector('.cursor');
-                
-                // Hacer que el cursor parpadee
-                setInterval(() => {
-                    cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
-                }, 500);
-                
-                // Eliminar el cursor después de 3 segundos
-                setTimeout(() => {
-                    if (cursor) cursor.remove();
-                }, 3000);
-            }
-        };
-        
-        // Iniciar el efecto de escritura después de un breve retraso
-        setTimeout(typeWriter, 500);
+        // Simplemente añadimos una clase para una transición suave sin parpadeo
+        headerTitle.classList.add('fade-in-text');
     }
     
     // Añadir el año actual al pie de página
@@ -108,7 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
         this.src = 'img/default-avatar.png';
     });
     
-    // Crear el efecto de partículas de fondo
+    // Crear el efecto de partículas de fondo con menos densidad y sin parpadeo
     createParticles();
 });
 
@@ -127,8 +101,8 @@ function createParticles() {
     container.style.pointerEvents = 'none';
     container.style.zIndex = '-1';
     
-    // Crear partículas
-    const particleCount = window.innerWidth < 768 ? 15 : 30;
+    // Crear partículas (reduciendo la cantidad para minimizar distracciones)
+    const particleCount = window.innerWidth < 768 ? 10 : 20;
     
     for (let i = 0; i < particleCount; i++) {
         const particle = document.createElement('div');
@@ -138,9 +112,10 @@ function createParticles() {
         particle.style.position = 'absolute';
         particle.style.width = Math.random() * 3 + 1 + 'px';
         particle.style.height = particle.style.width;
-        particle.style.backgroundColor = 'rgba(0, 184, 255, ' + (Math.random() * 0.2 + 0.1) + ')';
+        particle.style.backgroundColor = 'rgba(0, 184, 255, ' + (Math.random() * 0.15 + 0.05) + ')';
         particle.style.borderRadius = '50%';
-        particle.style.boxShadow = '0 0 5px rgba(0, 184, 255, 0.5)';
+        // Reducir el brillo para evitar efecto de parpadeo
+        particle.style.boxShadow = '0 0 3px rgba(0, 184, 255, 0.3)';
         
         // Posición inicial
         resetParticle(particle);
@@ -159,10 +134,10 @@ function resetParticle(particle) {
     particle.style.top = Math.random() * 100 + 100 + '%'; // Empezar desde debajo
     
     // Velocidades aleatorias (lento para un efecto sutil)
-    particle.speedY = -(Math.random() * 0.5 + 0.2); // Hacia arriba
+    particle.speedY = -(Math.random() * 0.3 + 0.1); // Hacia arriba (más lento)
     
-    // Opacidad aleatoria
-    particle.style.opacity = Math.random() * 0.6 + 0.4;
+    // Opacidad aleatoria pero menos variable
+    particle.style.opacity = Math.random() * 0.4 + 0.3;
 }
 
 // Animar una partícula
@@ -185,7 +160,7 @@ function animateParticle(particle) {
     moveParticle();
 }
 
-// Añadir estilos CSS para las animaciones
+// Añadir estilos CSS para las animaciones (sin parpadeo)
 const styleElement = document.createElement('style');
 styleElement.textContent = `
     .fade-in-section {
@@ -204,19 +179,20 @@ styleElement.textContent = `
         transform: translateX(0) !important;
     }
     
-    .cursor {
-        font-weight: 100;
-        transition: opacity 0.5s ease;
+    .fade-in-text {
+        opacity: 0;
+        animation: fadeIn 1s forwards;
     }
     
-    @keyframes glow {
-        0% { text-shadow: 0 0 5px rgba(0, 184, 255, 0.5); }
-        50% { text-shadow: 0 0 15px rgba(0, 184, 255, 0.8); }
-        100% { text-shadow: 0 0 5px rgba(0, 184, 255, 0.5); }
+    @keyframes fadeIn {
+        0% { opacity: 0; }
+        100% { opacity: 1; }
     }
     
+    /* Eliminar la animación de brillo parpadeante */
     .tech-highlight {
-        animation: glow 2s infinite;
+        color: var(--accent-color);
+        text-shadow: 0 0 5px var(--glow-color);
     }
 `;
 
