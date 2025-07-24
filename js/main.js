@@ -63,6 +63,41 @@ document.addEventListener('DOMContentLoaded', function() {
         observer.observe(item);
     });
     
+    // Funcionalidad para los elementos colapsables en experiencia profesional
+    const timelineHeaders = document.querySelectorAll('.timeline-header');
+    const toggleButtons = document.querySelectorAll('.toggle-btn');
+    
+    // Función para manejar el clic en los encabezados o botones de la experiencia
+    function toggleExperienceContent(event) {
+        // Encontrar el elemento timeline-item padre
+        const timelineItem = event.currentTarget.closest('.timeline-item');
+        
+        // Encontrar el contenido y el botón dentro de ese elemento
+        const content = timelineItem.querySelector('.timeline-content');
+        const button = timelineItem.querySelector('.toggle-btn');
+        
+        // Alternar la clase collapsed en el contenido
+        content.classList.toggle('collapsed');
+        
+        // Alternar la clase active en el botón para la rotación
+        button.classList.toggle('active');
+    }
+    
+    // Añadir el evento de clic tanto al encabezado como al botón
+    timelineHeaders.forEach(header => {
+        header.addEventListener('click', toggleExperienceContent);
+    });
+    
+    toggleButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            // Evitar que el clic en el botón también active el evento del encabezado
+            e.stopPropagation();
+            
+            // Llamar a la misma función de toggle
+            toggleExperienceContent(e);
+        });
+    });
+    
     // Reemplazo el efecto de escritura parpadeante por una simple aparición del nombre
     const headerTitle = document.querySelector('.profile-info h1');
     if (headerTitle) {
